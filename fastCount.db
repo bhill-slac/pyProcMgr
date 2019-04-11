@@ -1,0 +1,42 @@
+record(calc, "$(N)Rate")
+{
+	field( INPA, "$(N)Rate.LB NPP NMS" )   # Prev counter (Last B)
+	field( INPB, "$(N)Count NPP NMS" )     # Current counter
+	field( INPC, "1.0" )                   # Delta time (sec)
+	field( INPD, "$(N)Rate.VAL NPP NMS" )  # Previous rate
+	field( INPE, "$(RATE_SMOOTH=0.0)" )    # Smoothing factor
+	field( CALC, "(D*E)/C+MAX(0,B-A)*(1-E)/C" )
+	field( PREC, "2" )
+	field( EGU,  "Hz" )
+	field( SCAN, "1 second" )
+}
+
+record(calcout, "$(N)Count")
+{
+    field(PINI, "RUNNING")
+    field(INPA, "$(N)Count")
+    field(CALC, "A>=1000000?0:A+1")
+    field(PREC, "0")
+    field(FLNK, "$(N)CircBuff")
+    #field(ODLY, "$(DELAY=0.01)")
+    #field(OUT , "$(N)Monitor CPP")
+    #info(Q:group, {
+    #    "$(N)All":{"Count": {+type:"plain", +channel:"VAL"}}
+    #})
+    #field(TPRO, "1")
+}
+
+record(compress, "$(N)CircBuff")
+{
+    field( INP, "$(N)Count")
+    field(NSAM, "$(NELM=500)")
+    #info(Q:group, {
+    #    "$(N)iq":{"I": {+channel:"VAL"}}
+    #})
+}
+
+record( ai, "$(N)Monitor" )
+{
+	field( INP,  "$(N)Count CPP" )
+	field( FLNK, "$(N)Count" )
+}
