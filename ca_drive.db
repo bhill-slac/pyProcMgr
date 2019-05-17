@@ -1,0 +1,15 @@
+# ca_drive.db
+# Required macros:
+#	P		PV prefix
+#	CA_LNK	CA link which is monitored for rate and TSEL
+#	LAST_N	Number of last counter
+#
+
+record(calcout, "$(P)drive")
+{
+    field(PINI, "RUNNING")
+	field(A,	"$(CA_LNK) CPP")
+	field(TSEL,	"$(CA_LNK).TIME")
+    field(FLNK, "$(P)Count1")
+}
+

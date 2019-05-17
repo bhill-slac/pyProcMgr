@@ -1,0 +1,17 @@
+# trig.db
+# Triggers counters from an event code
+# Required macros:
+#	P		PV prefix
+#	EVNT	Event Number
+
+record(calcout, "$(P)drive")
+{
+    field(PINI, "RUNNING")
+    field(CALC, "A>=(2**53)?0:VAL+1")
+    field(PREC, "0")
+	field(SCAN, Event)
+	field(EVNT,	"$(EVNT)")
+	field(TSE,	"$(EVNT)")
+    field(FLNK, "$(P)Count1")
+}
+

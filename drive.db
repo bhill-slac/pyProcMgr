@@ -1,0 +1,22 @@
+# drive.db
+# Required macros:
+#	P		PV prefix
+#	LAST_N	Number of last counter
+
+record(ao, "$(P)period")
+{
+    field(VAL, "1")
+    field(OUT, "$(P)drive.ODLY")
+    field(PINI, "YES")
+}
+
+record(calcout, "$(P)drive")
+{
+    field(PINI, "RUNNING")
+#	field(ODLY, "$(DELAY=0.00575)")	# ~1khz
+    field(ODLY, "$(DELAY=0.017)")	# ~100hz
+#	field(ODLY, "$(DELAY=0.01)")
+    field(OUT , "$(P)drive.PROC CA")
+    field(FLNK, "$(P)Count1")
+}
+
