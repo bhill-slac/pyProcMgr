@@ -13,10 +13,14 @@ record(calc, "$(P)Rate$(N)")
 
 record(calcout, "$(P)Count$(N)")
 {
-    field(PINI, "RUNNING")
-    field(INPA, "$(P)Count$(N)")
-    field(CALC, "A>=1000000?0:A+1")
+    field(PINI, "YES")
+#   field(INPA, "$(P)Count$(N)")
+	field(VAL,  "0")
+    field(CALC, "VAL>=1000000?0:VAL+1")
     field(PREC, "0")
+	field(ODLY, "0.017")
+#	field(ODLY, "5")
+	field(OUT,  "$(P)Count$(N).PROC")
     field(FLNK, "$(P)CircBuff$(N)")
 }
 
