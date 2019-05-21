@@ -15,12 +15,13 @@ record(calcout, "$(P)Count$(N)")
 {
     field(PINI, "YES")
 #   field(INPA, "$(P)Count$(N)")
-	field(VAL,  "0")
+	field(VAL,  "1")
     field(CALC, "VAL>=1000000?0:VAL+1")
     field(PREC, "0")
+#   field(MDEL, "-1")
 	field(ODLY, "0.017")
 #	field(ODLY, "5")
-	field(OUT,  "$(P)Count$(N).PROC")
+	field(OUT,  "$(P)Count$(N).PROC CA")
     field(FLNK, "$(P)CircBuff$(N)")
 }
 
@@ -31,10 +32,14 @@ record(compress, "$(P)CircBuff$(N)")
     #info(Q:group, {
     #    "$(P)iq":{"I": {+channel:"VAL"}}
     #})
+#	field( FLNK, "$(P)drive$(N)" )
 }
 
-record( ai, "$(P)Monitor$(N)" )
+record( calcout, "$(P)drive$(N)" )
 {
-	field( INP,  "$(P)Count$(N) CPP" )
-	field( FLNK, "$(P)Count$(N)" )
+#	field(INPA, "$(P)Count$(N) CPP")
+    field(CALC, "A")
+	field(ODLY, "0.017")
+#	field(ODLY, "5")
+	field(OUT,  "$(P)Count$(N).PROC")
 }
