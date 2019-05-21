@@ -1,9 +1,9 @@
-record(calc, "$(N)Rate")
+record(calc, "$(P)Rate$(N)")
 {
-	field( INPA, "$(N)Rate.LB NPP NMS" )   # Prev counter (Last B)
-	field( INPB, "$(N)Count NPP NMS" )     # Current counter
+	field( INPA, "$(P)Rate$(N).LB NPP NMS" )   # Prev counter (Last B)
+	field( INPB, "$(P)Count$(N) NPP NMS" )     # Current counter
 	field( INPC, "1.0" )                   # Delta time (sec)
-	field( INPD, "$(N)Rate.VAL NPP NMS" )  # Previous rate
+	field( INPD, "$(P)Rate$(N).VAL NPP NMS" )  # Previous rate
 	field( INPE, "$(RATE_SMOOTH=0.0)" )    # Smoothing factor
 	field( CALC, "(D*E)/C+MAX(0,B-A)*(1-E)/C" )
 	field( PREC, "2" )
@@ -11,32 +11,26 @@ record(calc, "$(N)Rate")
 	field( SCAN, "1 second" )
 }
 
-record(calcout, "$(N)Count")
+record(calcout, "$(P)Count$(N)")
 {
     field(PINI, "RUNNING")
-    field(INPA, "$(N)Count")
+    field(INPA, "$(P)Count$(N)")
     field(CALC, "A>=1000000?0:A+1")
     field(PREC, "0")
-    field(FLNK, "$(N)CircBuff")
-    #field(ODLY, "$(DELAY=0.01)")
-    #field(OUT , "$(N)Monitor CPP")
-    #info(Q:group, {
-    #    "$(N)All":{"Count": {+type:"plain", +channel:"VAL"}}
-    #})
-    #field(TPRO, "1")
+    field(FLNK, "$(P)CircBuff$(N)")
 }
 
-record(compress, "$(N)CircBuff")
+record(compress, "$(P)CircBuff$(N)")
 {
-    field( INP, "$(N)Count")
+    field( INP, "$(P)Count$(N)")
     field(NSAM, "$(NELM=500)")
     #info(Q:group, {
-    #    "$(N)iq":{"I": {+channel:"VAL"}}
+    #    "$(P)iq":{"I": {+channel:"VAL"}}
     #})
 }
 
-record( ai, "$(N)Monitor" )
+record( ai, "$(P)Monitor$(N)" )
 {
-	field( INP,  "$(N)Count CPP" )
-	field( FLNK, "$(N)Count" )
+	field( INP,  "$(P)Count$(N) CPP" )
+	field( FLNK, "$(P)Count$(N)" )
 }
