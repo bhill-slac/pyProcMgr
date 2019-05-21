@@ -12,4 +12,4 @@ if [ ! -e "$SOFTIOCPVA" ]; then
 	exit 1
 fi
 
-./pyProcMgr.py -c 10 $SOFTIOCPVA '-m N=PVA:GW:TEST:$PYPROC_ID:,NELM=100000' '-d fastCount.db'
+./pyProcMgr.py -c 5 $SOFTIOCPVA '-m P=PVA:GW:TEST:$PYPROC_ID:,NELM=100000,N=0' '-d fastCount.db'
