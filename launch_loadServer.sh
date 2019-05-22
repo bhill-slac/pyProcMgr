@@ -1,4 +1,5 @@
 #!/bin/bash
+TEST_DIR=/reg/d/iocData/gwTest1
 
 PROCSERV=`which procServ`
 if [ ! -e "$PROCSERV" ]; then
@@ -24,7 +25,10 @@ TOP=`readlink -f $(dirname $LOADSERVER)/../..`
 echo TOP = $TOP
 
 cd $TOP
-$PYPROCMGR -c 10 $LOADSERVER \
+$PYPROCMGR -c 10  \
+	-n loadServer -p 50000 \
+	-D $TEST_DIR \
+	$LOADSERVER \
 	'-m DELAY=0.010,P=PVA:GW:TEST:$PYPROC_ID:,NELM=10'	\
 	'-d db/drive_100Counters.db'
 
