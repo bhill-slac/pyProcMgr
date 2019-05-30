@@ -13,3 +13,4 @@ PY_LD_VER=`python $P4P_TOP/get_PY_LD_VER.py`
 #source /reg/g/pcds/setup/pathmunge.sh
 pythonpathmunge $P4P_TOP/python${PY_LD_VER}/${EPICS_HOST_ARCH}
 
+pathmunge /reg/neh/home/bhill/git-wa-neh/extensions/loadServer-git/bin/$EPICS_HOST_ARCH
