@@ -188,4 +188,4 @@ if __name__ == '__main__':
     # Pre-exit cleanup
     #killProcesses()
 
-    sys.exit(status)
+    #sys.exit(status)
