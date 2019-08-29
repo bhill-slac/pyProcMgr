@@ -90,10 +90,9 @@ class fastCountClient(object):
 def process_options(argv):
     if argv is None:
         argv = sys.argv[1:]
-    description = 'epics-build builds one or EPICS module releases.\n'
-    epilog_fmt = '\nStandard EPICS modules can be specified w/ just the module basename.\n'\
-            + '\nExamples:\n' \
-            + 'epics-build -p asyn/4.31-0.1.0 --top /afs/slac/g/lcls/epics/R3.15.5-1.0/modules\n'
+    description = 'fastCountClient is a python test program for monitoring PVs via PVAccess.\n'
+    epilog_fmt =  '\nExamples:\n' \
+            + 'fastCountClient -p TEST:01:AnalogIn0\n'
     epilog = textwrap.dedent( epilog_fmt )
     parser = argparse.ArgumentParser( description=description, formatter_class=argparse.RawDescriptionHelpFormatter, epilog=epilog )
     parser.add_argument( '-p', '--pvName',   dest='pvNames', action='append', \
@@ -109,11 +108,11 @@ def process_options(argv):
 def main(argv=None):
     options = process_options(argv)
 
-    pvNames = [ 'PVA:GW:TEST:1:Count', 'PVA:GW:TEST:2:Count', 'PVA:GW:TEST:3:Count' ]
-    #pvNames = [ 'PVA:GW:TEST:1:Rate', 'PVA:GW:TEST:2:Rate', 'PVA:GW:TEST:3:Rate' ]
+    if len(options.pvNames) == 0:
+        options.pvNames = [ 'PVA:GW:TEST:01:Count00', 'PVA:GW:TEST:02:Count00', 'PVA:GW:TEST:02:Count01' ]
     clients = []
     #pvaValue = _ctxt.get( pvNames[0] )
-    for pvName in pvNames:
+    for pvName in options.pvNames:
         clients.append( fastCountClient( pvName, options.verbose ) )
 
     try:
