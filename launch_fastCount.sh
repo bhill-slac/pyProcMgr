@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PROCSERV=`which procServ`
-if [ ! -e "$PROCSERV" ]; then
+PROCSERV_EXE=`which procServ`
+if [ ! -e "$PROCSERV_EXE" ]; then
 	echo "Error: procServ not found!"
 	exit 1
 fi
